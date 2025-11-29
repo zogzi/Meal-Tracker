@@ -1,156 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Meal Tracker</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    </style>
-</head>
-<body>
-    <div id="root"></div>
-    
-    <script type="text/babel">
-        const { useState } = React;
+import React, { useState } from 'react';
+import { Check } from 'lucide-react';
 
-        function MealTracker() {
-            const [meals, setMeals] = useState([
-                {
-                    id: 1,
-                    name: 'Breakfast',
-                    description: 'The first meal of the day, typically eaten in the morning. Should include proteins, whole grains, and fruits to jumpstart your metabolism.',
-                    checked: false,
-                    timeRange: '6:00 AM - 10:00 AM'
-                },
-                {
-                    id: 2,
-                    name: 'Morning Snack',
-                    description: 'A light snack between breakfast and lunch to maintain energy levels. Great options include nuts, fruits, or yogurt.',
-                    checked: false,
-                    timeRange: '10:00 AM - 11:30 AM'
-                },
-                {
-                    id: 3,
-                    name: 'Lunch',
-                    description: 'The midday meal that refuels your body. Should be balanced with lean proteins, vegetables, and complex carbohydrates.',
-                    checked: false,
-                    timeRange: '12:00 PM - 2:00 PM'
-                },
-                {
-                    id: 4,
-                    name: 'Afternoon Snack',
-                    description: 'A small snack to prevent energy dips in the afternoon. Try vegetables with hummus, fruit, or a small handful of nuts.',
-                    checked: false,
-                    timeRange: '3:00 PM - 4:30 PM'
-                },
-                {
-                    id: 5,
-                    name: 'Dinner',
-                    description: 'The evening meal, typically the last main meal of the day. Should be nutritious but not too heavy, eaten at least 2-3 hours before bed.',
-                    checked: false,
-                    timeRange: '6:00 PM - 8:00 PM (Last meal of the day)'
-                }
-            ]);
+export default function MealTracker() {
+  const [meals, setMeals] = useState([
+    {
+      id: 1,
+      name: 'Breakfast',
+      description: 'The first meal of the day, typically eaten in the morning. Should include proteins, whole grains, and fruits to jumpstart your metabolism.',
+      checked: false,
+      timeRange: '6:00 AM - 10:00 AM'
+    },
+    {
+      id: 2,
+      name: 'Morning Snack',
+      description: 'A light snack between breakfast and lunch to maintain energy levels. Great options include nuts, fruits, or yogurt.',
+      checked: false,
+      timeRange: '10:00 AM - 11:30 AM'
+    },
+    {
+      id: 3,
+      name: 'Lunch',
+      description: 'The midday meal that refuels your body. Should be balanced with lean proteins, vegetables, and complex carbohydrates.',
+      checked: false,
+      timeRange: '12:00 PM - 2:00 PM'
+    },
+    {
+      id: 4,
+      name: 'Afternoon Snack',
+      description: 'A small snack to prevent energy dips in the afternoon. Try vegetables with hummus, fruit, or a small handful of nuts.',
+      checked: false,
+      timeRange: '3:00 PM - 4:30 PM'
+    },
+    {
+      id: 5,
+      name: 'Dinner',
+      description: 'The evening meal, typically the last main meal of the day. Should be nutritious but not too heavy, eaten at least 2-3 hours before bed.',
+      checked: false,
+      timeRange: '6:00 PM - 8:00 PM (Last meal of the day)'
+    },
 
-            const toggleMeal = (id) => {
-                setMeals(meals.map(meal => 
-                    meal.id === id ? { ...meal, checked: !meal.checked } : meal
-                ));
-            };
+  ]);
 
-            const resetDay = () => {
-                setMeals(meals.map(meal => ({ ...meal, checked: false })));
-            };
+  const toggleMeal = (id) => {
+    setMeals(meals.map(meal => 
+      meal.id === id ? { ...meal, checked: !meal.checked } : meal
+    ));
+  };
 
-            const completedMeals = meals.filter(m => m.checked).length;
-            const totalMeals = meals.length;
+  const resetDay = () => {
+    setMeals(meals.map(meal => ({ ...meal, checked: false })));
+  };
 
-            return (
-                <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-6">
-                    <div className="max-w-3xl mx-auto">
-                        <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
-                            <h1 className="text-4xl font-bold text-emerald-800 mb-2">Daily Meal Tracker</h1>
-                            <p className="text-gray-600 mb-4">Track your meals throughout the day</p>
-                            
-                            <div className="bg-emerald-50 rounded-lg p-4 mb-6">
-                                <div className="flex items-center justify-between mb-2">
-                                    <span className="text-lg font-semibold text-emerald-700">Today's Progress</span>
-                                    <span className="text-2xl font-bold text-emerald-600">{completedMeals}/{totalMeals}</span>
-                                </div>
-                                <div className="w-full bg-emerald-200 rounded-full h-3">
-                                    <div 
-                                        className="bg-emerald-500 h-3 rounded-full transition-all duration-300"
-                                        style={{ width: `${(completedMeals / totalMeals) * 100}%` }}
-                                    ></div>
-                                </div>
-                            </div>
+  const completedMeals = meals.filter(m => m.checked).length;
+  const totalMeals = meals.length;
 
-                            <button
-                                onClick={resetDay}
-                                className="mb-6 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-medium transition-colors"
-                            >
-                                Reset Day
-                            </button>
-                        </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-3 sm:p-6">
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-4 sm:mb-6">
+          <h1 className="text-2xl sm:text-4xl font-bold text-emerald-800 mb-1 sm:mb-2">Daily Meal Tracker</h1>
+          <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">Track your meals throughout the day</p>
+          
+          <div className="bg-emerald-50 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-base sm:text-lg font-semibold text-emerald-700">Today's Progress</span>
+              <span className="text-xl sm:text-2xl font-bold text-emerald-600">{completedMeals}/{totalMeals}</span>
+            </div>
+            <div className="w-full bg-emerald-200 rounded-full h-2 sm:h-3">
+              <div 
+                className="bg-emerald-500 h-2 sm:h-3 rounded-full transition-all duration-300"
+                style={{ width: `${(completedMeals / totalMeals) * 100}%` }}
+              ></div>
+            </div>
+          </div>
 
-                        <div className="space-y-4">
-                            {meals.map((meal) => (
-                                <div
-                                    key={meal.id}
-                                    className={`bg-white rounded-xl shadow-md p-6 transition-all duration-300 cursor-pointer hover:shadow-lg ${
-                                        meal.checked ? 'ring-2 ring-emerald-400' : ''
-                                    }`}
-                                    onClick={() => toggleMeal(meal.id)}
-                                >
-                                    <div className="flex items-start gap-4">
-                                        <div
-                                            className={`flex-shrink-0 w-7 h-7 rounded-lg border-2 flex items-center justify-center transition-all ${
-                                                meal.checked
-                                                    ? 'bg-emerald-500 border-emerald-500'
-                                                    : 'border-gray-300 hover:border-emerald-400'
-                                            }`}
-                                        >
-                                            {meal.checked && (
-                                                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                                </svg>
-                                            )}
-                                        </div>
-                                        
-                                        <div className="flex-1">
-                                            <div className="flex items-center justify-between mb-2">
-                                                <h3 className={`text-xl font-semibold ${
-                                                    meal.checked ? 'text-emerald-700 line-through' : 'text-gray-800'
-                                                }`}>
-                                                    {meal.name}
-                                                </h3>
-                                                <span className="text-sm text-gray-500 font-medium">{meal.timeRange}</span>
-                                            </div>
-                                            <p className="text-gray-600 leading-relaxed">{meal.description}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+          <button
+            onClick={resetDay}
+            className="mb-4 sm:mb-6 bg-red-500 hover:bg-red-600 text-white px-4 py-1.5 sm:px-6 sm:py-2 rounded-lg text-sm sm:text-base font-medium transition-colors"
+          >
+            Reset Day
+          </button>
+        </div>
 
-                        {completedMeals === totalMeals && (
-                            <div className="mt-6 bg-emerald-500 text-white rounded-xl p-6 text-center animate-pulse">
-                                <h2 className="text-2xl font-bold mb-2">🎉 Great Job!</h2>
-                                <p>You've completed all your meals for today!</p>
-                            </div>
-                        )}
-                    </div>
+        <div className="space-y-3 sm:space-y-4">
+          {meals.map((meal) => (
+            <div
+              key={meal.id}
+              className={`bg-white rounded-xl shadow-md p-4 sm:p-6 transition-all duration-300 cursor-pointer hover:shadow-lg ${
+                meal.checked ? 'ring-2 ring-emerald-400' : ''
+              }`}
+              onClick={() => toggleMeal(meal.id)}
+            >
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div
+                  className={`flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center transition-all ${
+                    meal.checked
+                      ? 'bg-emerald-500 border-emerald-500'
+                      : 'border-gray-300 hover:border-emerald-400'
+                  }`}
+                >
+                  {meal.checked && <Check className="w-4 h-4 sm:w-5 sm:h-5 text-white" />}
                 </div>
-            );
-        }
+                
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between mb-1 sm:mb-2 gap-2">
+                    <h3 className={`text-base sm:text-xl font-semibold ${
+                      meal.checked ? 'text-emerald-700 line-through' : 'text-gray-800'
+                    }`}>
+                      {meal.name}
+                    </h3>
+                    <span className="text-xs sm:text-sm text-gray-500 font-medium whitespace-nowrap flex-shrink-0">{meal.timeRange}</span>
+                  </div>
+                  <p className="text-xs sm:text-base text-gray-600 leading-relaxed">{meal.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<MealTracker />);
-    </script>
-</body>
-</html>
+        {completedMeals === totalMeals && (
+          <div className="mt-4 sm:mt-6 bg-emerald-500 text-white rounded-xl p-4 sm:p-6 text-center animate-pulse">
+            <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">🎉 Great Job!</h2>
+            <p className="text-sm sm:text-base">You've completed all your meals for today!</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
