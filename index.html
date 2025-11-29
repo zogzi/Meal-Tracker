@@ -1,164 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Meal Tracker</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    </style>
-</head>
-<body>
-    <div id="root"></div>
-    
-    <script type="text/babel">
-        const { useState } = React;
+import React, { useState } from 'react';
+import { Check } from 'lucide-react';
 
-        function MealTracker() {
-            const [meals, setMeals] = useState([
-                {
-                  [
+export default function MealTracker() {
+  const [meals, setMeals] = useState([
     {
-        id: 1,
-        name: 'Breakfast',
-        description:
-            'Breakfast aligns with the body’s natural circadian rise in cortisol and digestive readiness. Around 8:00 AM, the body is fully awake, digestion activates, and hydration + nourishment work best. A balanced breakfast with proteins, fruits, and hydration supports metabolism and stabilizes energy for the morning.',
-        checked: false,
-        timeRange: '6:00 AM - 10:00 AM'
+      id: 1,
+      name: 'Breakfast',
+      description: 'Breakfast aligns with the body's natural circadian rise in cortisol and digestive readiness. Around 8:00 AM, the body is fully awake, digestion activates, and hydration + nourishment work best. A balanced breakfast with proteins, fruits, and hydration supports metabolism and stabilizes energy for the morning.',
+      checked: false,
+      timeRange: '6:00 AM - 10:00 AM'
     },
     {
-        id: 2,
-        name: 'Morning Snack',
-        description:
-            'As attention and alertness peak around 10:00 AM, a light snack can help sustain cognitive performance. Choose simple, clean options like fruits, nuts, or yogurt to maintain steady energy without overstimulating appetite before lunch.',
-        checked: false,
-        timeRange: '10:00 AM - 11:30 AM'
+      id: 2,
+      name: 'Morning Snack',
+      description: 'As attention and alertness peak around 10:00 AM, a light snack can help sustain cognitive performance. Choose simple, clean options like fruits, nuts, or yogurt to maintain steady energy without overstimulating appetite before lunch.',
+      checked: false,
+      timeRange: '10:00 AM - 11:30 AM'
     },
     {
-        id: 3,
-        name: 'Lunch',
-        description:
-            'Digestive enzymes peak around midday, making lunch the ideal time for your biggest and most nutrient-dense meal. A balanced plate of lean proteins, vegetables, and complex carbs supports stable energy for the afternoon performance window.',
-        checked: false,
-        timeRange: '12:00 PM - 2:00 PM'
+      id: 3,
+      name: 'Lunch',
+      description: 'Digestive enzymes peak around midday, making lunch the ideal time for your biggest and most nutrient-dense meal. A balanced plate of lean proteins, vegetables, and complex carbs supports stable energy for the afternoon performance window.',
+      checked: false,
+      timeRange: '12:00 PM - 2:00 PM'
     },
     {
-        id: 4,
-        name: 'Afternoon Snack',
-        description:
-            'During the afternoon—when coordination (2:30 PM) and reaction time (3:30 PM) reach their peak—a light snack helps prevent dips while supporting mental focus. Good choices include vegetables with hummus, fruit, or nuts.',
-        checked: false,
-        timeRange: '3:00 PM - 4:30 PM'
+      id: 4,
+      name: 'Afternoon Snack',
+      description: 'During the afternoon—when coordination (2:30 PM) and reaction time (3:30 PM) reach their peak—a light snack helps prevent dips while supporting mental focus. Good choices include vegetables with hummus, fruit, or nuts.',
+      checked: false,
+      timeRange: '3:00 PM - 4:30 PM'
     },
     {
-        id: 5,
-        name: 'Dinner',
-        description:
-            'As the body enters its wind-down phase (around 7:00 PM) and melatonin begins rising later in the evening, dinner should be nutritious but not heavy. Keep portions moderate and finish 2–3 hours before sleep to support digestion and nighttime recovery.',
-        checked: false,
-        timeRange: '6:00 PM - 8:00 PM (Last meal of the day)'
+      id: 5,
+      name: 'Dinner',
+      description: 'As the body enters its wind-down phase (around 7:00 PM) and melatonin begins rising later in the evening, dinner should be nutritious but not heavy. Keep portions moderate and finish 2–3 hours before sleep to support digestion and nighttime recovery.',
+      checked: false,
+      timeRange: '6:00 PM - 8:00 PM (Last meal of the day)'
     }
-]
+  ]);
 
-            const toggleMeal = (id) => {
-                setMeals(meals.map(meal => 
-                    meal.id === id ? { ...meal, checked: !meal.checked } : meal
-                ));
-            };
+  const toggleMeal = (id) => {
+    setMeals(meals.map(meal => 
+      meal.id === id ? { ...meal, checked: !meal.checked } : meal
+    ));
+  };
 
-            const resetDay = () => {
-                setMeals(meals.map(meal => ({ ...meal, checked: false })));
-            };
+  const resetDay = () => {
+    setMeals(meals.map(meal => ({ ...meal, checked: false })));
+  };
 
-            const completedMeals = meals.filter(m => m.checked).length;
-            const totalMeals = meals.length;
+  const completedMeals = meals.filter(m => m.checked).length;
+  const totalMeals = meals.length;
 
-            return (
-                <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-3 sm:p-6">
-                    <div className="max-w-3xl mx-auto">
-                        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-4 sm:mb-6">
-                            <h1 className="text-2xl sm:text-4xl font-bold text-emerald-800 mb-1 sm:mb-2">Daily Meal Tracker</h1>
-                            <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">Track your meals throughout the day</p>
-                            
-                            <div className="bg-emerald-50 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
-                                <div className="flex items-center justify-between mb-2">
-                                    <span className="text-base sm:text-lg font-semibold text-emerald-700">Today's Progress</span>
-                                    <span className="text-xl sm:text-2xl font-bold text-emerald-600">{completedMeals}/{totalMeals}</span>
-                                </div>
-                                <div className="w-full bg-emerald-200 rounded-full h-2 sm:h-3">
-                                    <div 
-                                        className="bg-emerald-500 h-2 sm:h-3 rounded-full transition-all duration-300"
-                                        style={{ width: `${(completedMeals / totalMeals) * 100}%` }}
-                                    ></div>
-                                </div>
-                            </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-3 sm:p-6">
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-4 sm:mb-6">
+          <div className="flex items-center gap-3 sm:gap-4 mb-1 sm:mb-2">
+            <div className="text-4xl sm:text-6xl">🍎</div>
+            <h1 className="text-2xl sm:text-4xl font-bold text-emerald-800">Daily Meal Tracker</h1>
+          </div>
+          <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">Track your meals throughout the day</p>
+          
+          <div className="bg-emerald-50 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-base sm:text-lg font-semibold text-emerald-700">Today's Progress</span>
+              <span className="text-xl sm:text-2xl font-bold text-emerald-600">{completedMeals}/{totalMeals}</span>
+            </div>
+            <div className="w-full bg-emerald-200 rounded-full h-2 sm:h-3">
+              <div 
+                className="bg-emerald-500 h-2 sm:h-3 rounded-full transition-all duration-300"
+                style={{ width: `${(completedMeals / totalMeals) * 100}%` }}
+              ></div>
+            </div>
+          </div>
 
-                            <button
-                                onClick={resetDay}
-                                className="mb-4 sm:mb-6 bg-red-500 hover:bg-red-600 text-white px-4 py-1.5 sm:px-6 sm:py-2 rounded-lg text-sm sm:text-base font-medium transition-colors"
-                            >
-                                Reset Day
-                            </button>
-                        </div>
+          <button
+            onClick={resetDay}
+            className="mb-4 sm:mb-6 bg-red-500 hover:bg-red-600 text-white px-4 py-1.5 sm:px-6 sm:py-2 rounded-lg text-sm sm:text-base font-medium transition-colors"
+          >
+            Reset Day
+          </button>
+        </div>
 
-                        <div className="space-y-3 sm:space-y-4">
-                            {meals.map((meal) => (
-                                <div
-                                    key={meal.id}
-                                    className={`bg-white rounded-xl shadow-md p-4 sm:p-6 transition-all duration-300 cursor-pointer hover:shadow-lg ${
-                                        meal.checked ? 'ring-2 ring-emerald-400' : ''
-                                    }`}
-                                    onClick={() => toggleMeal(meal.id)}
-                                >
-                                    <div className="flex items-start gap-3 sm:gap-4">
-                                        <div
-                                            className={`flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center transition-all ${
-                                                meal.checked
-                                                    ? 'bg-emerald-500 border-emerald-500'
-                                                    : 'border-gray-300 hover:border-emerald-400'
-                                            }`}
-                                        >
-                                            {meal.checked && (
-                                                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                                </svg>
-                                            )}
-                                        </div>
-                                        
-                                        <div className="flex-1 min-w-0">
-                                            <div className="flex items-start justify-between mb-1 sm:mb-2 gap-2">
-                                                <h3 className={`text-base sm:text-xl font-semibold ${
-                                                    meal.checked ? 'text-emerald-700 line-through' : 'text-gray-800'
-                                                }`}>
-                                                    {meal.name}
-                                                </h3>
-                                                <span className="text-xs sm:text-sm text-gray-500 font-medium whitespace-nowrap flex-shrink-0">{meal.timeRange}</span>
-                                            </div>
-                                            <p className="text-xs sm:text-base text-gray-600 leading-relaxed">{meal.description}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        {completedMeals === totalMeals && (
-                            <div className="mt-4 sm:mt-6 bg-emerald-500 text-white rounded-xl p-4 sm:p-6 text-center animate-pulse">
-                                <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">🎉 Great Job!</h2>
-                                <p className="text-sm sm:text-base">You've completed all your meals for today!</p>
-                            </div>
-                        )}
-                    </div>
+        <div className="space-y-3 sm:space-y-4">
+          {meals.map((meal) => (
+            <div
+              key={meal.id}
+              className={`bg-white rounded-xl shadow-md p-4 sm:p-6 transition-all duration-300 cursor-pointer hover:shadow-lg ${
+                meal.checked ? 'ring-2 ring-emerald-400' : ''
+              }`}
+              onClick={() => toggleMeal(meal.id)}
+            >
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div
+                  className={`flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center transition-all ${
+                    meal.checked
+                      ? 'bg-emerald-500 border-emerald-500'
+                      : 'border-gray-300 hover:border-emerald-400'
+                  }`}
+                >
+                  {meal.checked && <Check className="w-4 h-4 sm:w-5 sm:h-5 text-white" />}
                 </div>
-            );
-        }
+                
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between mb-1 sm:mb-2 gap-2">
+                    <h3 className={`text-base sm:text-xl font-semibold ${
+                      meal.checked ? 'text-emerald-700 line-through' : 'text-gray-800'
+                    }`}>
+                      {meal.name}
+                    </h3>
+                    <span className="text-xs sm:text-sm text-gray-500 font-medium whitespace-nowrap flex-shrink-0">{meal.timeRange}</span>
+                  </div>
+                  <p className="text-xs sm:text-base text-gray-600 leading-relaxed">{meal.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<MealTracker />);
-    </script>
-</body>
-</html>
+        {completedMeals === totalMeals && (
+          <div className="mt-4 sm:mt-6 bg-emerald-500 text-white rounded-xl p-4 sm:p-6 text-center animate-pulse">
+            <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">🎉 Great Job!</h2>
+            <p className="text-sm sm:text-base">You've completed all your meals for today!</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
