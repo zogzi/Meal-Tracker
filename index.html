@@ -22,41 +22,48 @@
         function MealTracker() {
             const [meals, setMeals] = useState([
                 {
-                    id: 1,
-                    name: 'Breakfast',
-                    description: 'The first meal of the day, typically eaten in the morning. Should include proteins, whole grains, and fruits to jumpstart your metabolism.',
-                    checked: false,
-                    timeRange: '6:00 AM - 10:00 AM'
-                },
-                {
-                    id: 2,
-                    name: 'Morning Snack',
-                    description: 'A light snack between breakfast and lunch to maintain energy levels. Great options include nuts, fruits, or yogurt.',
-                    checked: false,
-                    timeRange: '10:00 AM - 11:30 AM'
-                },
-                {
-                    id: 3,
-                    name: 'Lunch',
-                    description: 'The midday meal that refuels your body. Should be balanced with lean proteins, vegetables, and complex carbohydrates.',
-                    checked: false,
-                    timeRange: '12:00 PM - 2:00 PM'
-                },
-                {
-                    id: 4,
-                    name: 'Afternoon Snack',
-                    description: 'A small snack to prevent energy dips in the afternoon. Try vegetables with hummus, fruit, or a small handful of nuts.',
-                    checked: false,
-                    timeRange: '3:00 PM - 4:30 PM'
-                },
-                {
-                    id: 5,
-                    name: 'Dinner',
-                    description: 'The evening meal, typically the last main meal of the day. Should be nutritious but not too heavy, eaten at least 2-3 hours before bed.',
-                    checked: false,
-                    timeRange: '6:00 PM - 8:00 PM (Last meal of the day)'
-                }
-            ]);
+                  [
+    {
+        id: 1,
+        name: 'Breakfast',
+        description:
+            'Breakfast aligns with the body’s natural circadian rise in cortisol and digestive readiness. Around 8:00 AM, the body is fully awake, digestion activates, and hydration + nourishment work best. A balanced breakfast with proteins, fruits, and hydration supports metabolism and stabilizes energy for the morning.',
+        checked: false,
+        timeRange: '6:00 AM - 10:00 AM'
+    },
+    {
+        id: 2,
+        name: 'Morning Snack',
+        description:
+            'As attention and alertness peak around 10:00 AM, a light snack can help sustain cognitive performance. Choose simple, clean options like fruits, nuts, or yogurt to maintain steady energy without overstimulating appetite before lunch.',
+        checked: false,
+        timeRange: '10:00 AM - 11:30 AM'
+    },
+    {
+        id: 3,
+        name: 'Lunch',
+        description:
+            'Digestive enzymes peak around midday, making lunch the ideal time for your biggest and most nutrient-dense meal. A balanced plate of lean proteins, vegetables, and complex carbs supports stable energy for the afternoon performance window.',
+        checked: false,
+        timeRange: '12:00 PM - 2:00 PM'
+    },
+    {
+        id: 4,
+        name: 'Afternoon Snack',
+        description:
+            'During the afternoon—when coordination (2:30 PM) and reaction time (3:30 PM) reach their peak—a light snack helps prevent dips while supporting mental focus. Good choices include vegetables with hummus, fruit, or nuts.',
+        checked: false,
+        timeRange: '3:00 PM - 4:30 PM'
+    },
+    {
+        id: 5,
+        name: 'Dinner',
+        description:
+            'As the body enters its wind-down phase (around 7:00 PM) and melatonin begins rising later in the evening, dinner should be nutritious but not heavy. Keep portions moderate and finish 2–3 hours before sleep to support digestion and nighttime recovery.',
+        checked: false,
+        timeRange: '6:00 PM - 8:00 PM (Last meal of the day)'
+    }
+]
 
             const toggleMeal = (id) => {
                 setMeals(meals.map(meal => 
