@@ -64,6 +64,13 @@
                 ));
             };
 
+            const handleKeyPress = (event, id) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    toggleMeal(id);
+                }
+            };
+
             const resetDay = () => {
                 setMeals(meals.map(meal => ({ ...meal, checked: false })));
             };
@@ -107,6 +114,10 @@
                                         meal.checked ? 'ring-2 ring-emerald-400' : ''
                                     }`}
                                     onClick={() => toggleMeal(meal.id)}
+                                    onKeyPress={(e) => handleKeyPress(e, meal.id)}
+                                    tabIndex={0}
+                                    role="checkbox"
+                                    aria-checked={meal.checked}
                                 >
                                     <div className="flex items-start gap-3 sm:gap-4">
                                         <div
